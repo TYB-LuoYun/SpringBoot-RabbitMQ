@@ -39,6 +39,8 @@ public class RabbitConfig {
          args.put("x-dead-letter-exchange", DEAD_LETTER_EXCHANGE);
          // x-dead-letter-routing-key 这里声明当前队列的死信路由key
          args.put("x-dead-letter-routing-key", DEAD_LETTER_QUEUEA_ROUTING_KEY);
+         //这个队列的过期时间，进入这个队列的消息都会用这个作为过期时间
+         args.put("x-message-ttl",6000);
          return QueueBuilder.durable(BUSINESS_QUEUEA_NAME).withArguments(args).build();
      }
 
