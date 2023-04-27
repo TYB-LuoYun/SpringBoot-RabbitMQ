@@ -43,7 +43,8 @@ public class BusinessMessageReceiver  {
         byte[] body = message.getBody();
         String msg = new String(body);
         System.out.println("收到业务消息B：" + msg);
-        channel.basicAck(message.getMessageProperties().getDeliveryTag(),false);  //这是接收
-        channel.basicNack(message.getMessageProperties().getDeliveryTag(),false,false); //这是拒收
+        channel.basicAck(message.getMessageProperties().getDeliveryTag(),false);  //这是消费成功
+        channel.basicNack(message.getMessageProperties().getDeliveryTag(),false,false); //这是消费失败
+        channel.basicReject(message.getMessageProperties().getDeliveryTag(),false);  //表示拒收
     }
 }
