@@ -1,6 +1,7 @@
 package com.example.springboot2rabbitmq.controller;
 
 import com.example.springboot2rabbitmq.deadletter.BusinessMessageSender;
+import com.example.springboot2rabbitmq.delay.DelaySender;
 import com.example.springboot2rabbitmq.fanout.FanoutSender;
 import com.example.springboot2rabbitmq.hello.HelloSender;
 import com.example.springboot2rabbitmq.hello.HelloSender2;
@@ -26,6 +27,8 @@ public class HelloController {
     private FanoutSender fanoutSender;
     @Autowired
     private BusinessMessageSender businessMessageSender;
+    @Autowired
+    private DelaySender delaySender;
 
     @RequestMapping("hello")
     public String hello(){
@@ -76,6 +79,14 @@ public class HelloController {
     public String sendFanout(String msg){
 
         businessMessageSender.send(msg);
+        return "ok";
+    }
+
+    @RequestMapping("sendMsg2")
+    public String sendMsg2(String msg){
+        msg ="延时队列";
+        delaySender.send(msg,"delay_10s");
+        delaySender.send(msg,"delay_20s");
         return "ok";
     }
 
