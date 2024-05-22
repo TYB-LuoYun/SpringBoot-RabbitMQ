@@ -17,10 +17,15 @@ public class DelayRabbitConfig {
     public static final String DELAY_QUEUEA_ROUTING_KEY = "delay.queue.demo.business.queuea.routingkey";
     public static final String DELAY_QUEUEB_ROUTING_KEY = "delay.queue.demo.business.queueb.routingkey";
     public static final String DEAD_LETTER_EXCHANGE = "delay.queue.demo.deadletter.exchange";
-    public static final String DEAD_LETTER_QUEUEA_ROUTING_KEY = "delay.queue.demo.deadletter.delay_10s.routingkey";
-    public static final String DEAD_LETTER_QUEUEB_ROUTING_KEY = "delay.queue.demo.deadletter.delay_20s.routingkey";
+
     public static final String DEAD_LETTER_QUEUEA_NAME = "delay.queue.demo.deadletter.queuea";
     public static final String DEAD_LETTER_QUEUEB_NAME = "delay.queue.demo.deadletter.queueb";
+
+
+
+
+    public static final String DEAD_LETTER_QUEUEA_ROUTING_KEY = "delay.queue.demo.deadletter.delay_10s.routingkey";
+    public static final String DEAD_LETTER_QUEUEB_ROUTING_KEY = "delay.queue.demo.deadletter.delay_20s.routingkey";
 
     // 声明延时Exchange
     @Bean("delayExchange")
@@ -63,6 +68,8 @@ public class DelayRabbitConfig {
     }
 
     // 声明死信队列A 用于接收延时10s处理的消息
+    // =====把该队列 与 deadLetterExchange交换机绑定并指定路由，其中deadLetterExchange这个交换机被指定为死信交换机被绑定到了延时队列delayQueueA
+    // ===== 所以当发消息给 死信交换机的时候  会进入到延时队列
     @Bean("deadLetterQueueAA")
     public Queue deadLetterQueueA(){
         return new Queue(DEAD_LETTER_QUEUEA_NAME);

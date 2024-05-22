@@ -8,6 +8,17 @@ import org.springframework.context.annotation.Configuration;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ *
+ * 死信队列:指定一个死信交换机(就是正常的交换机但是被指定在队列被指定为死信了)和路由
+ * 普通交换机: 绑定死信队列
+ *
+ *
+ *
+ *
+ * 声明一个队列绑定 死信交换机 用于接收死信消息
+ * 声明一个队列绑定 普通交换机 用于接收消息
+ */
 @Configuration
 public class RabbitConfig {
     public static final String BUSINESS_EXCHANGE_NAME = "dead.letter.demo.simple.business.exchange";
